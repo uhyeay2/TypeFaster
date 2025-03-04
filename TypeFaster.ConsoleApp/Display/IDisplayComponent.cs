@@ -1,13 +1,15 @@
-﻿namespace TypeFaster.ConsoleApp.Display
+﻿using TypeFaster.ConsoleApp.Display.Components;
+
+namespace TypeFaster.ConsoleApp.Display
 {
     /// <summary>
-    /// This interface defines the contract for an object that creates DisplayedContent that will be written to the Console.
+    /// This interface defines the contract for an object that creates DisplayedLines that will be written to the Console.
     /// </summary>
     public interface IDisplayComponent
     {
         /// <summary>
-        /// Returns DisplayedContent that will be written to the Console.
+        /// Returns the DisplayedLines that will be written to the Console.
         /// </summary>
-        public DisplayedContent GetDisplayedContent();
+        public IEnumerable<DisplayedLine> GetDisplayedLines();
     }
 }
