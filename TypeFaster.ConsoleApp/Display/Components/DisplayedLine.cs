@@ -119,8 +119,43 @@
             }
 
             _contents.Add(new DisplayedText(text, PositionX + Width, PositionY, fontColor, backgroundColor));
-
             _width += text.Length;
+
+            return this;
+        }
+
+        public DisplayedLine PrependText(string text, ConsoleColor fontColor, ConsoleColor backgroundColor)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return this;
+            }
+
+            _contents.Insert(0, new DisplayedText(text, _positionX, _positionY, fontColor, backgroundColor));
+            _width += text.Length;
+
+            UpdatePositionX(_positionX);
+
+            return this;
+        }
+
+        public DisplayedLine CenterText(int targetWidth, ConsoleColor backgroundColor)
+        {
+            if (targetWidth <= Width)
+            {
+                return this;
+            }
+
+            var leftPadding = (targetWidth - Width) / 2;
+
+            PrependText(new string(' ', leftPadding), backgroundColor, backgroundColor);
+
+            var rightPadding = targetWidth - Width;
+
+            if (rightPadding > 0)
+            {
+                AddText(new string(' ', rightPadding), backgroundColor, backgroundColor);
+            }
 
             return this;
         }
@@ -144,7 +179,7 @@
 
         #region IDisplayComponent Implementation
 
-        public DisplayedContent GetDisplayedContent() => new (_contents);
+        public IEnumerable<DisplayedLine> GetDisplayedLines() => [this];
         
         #endregion
     }

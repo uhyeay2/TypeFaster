@@ -90,8 +90,7 @@
 
         #region IDisplayComponent Implementation
 
-        public DisplayedContent GetDisplayedContent() =>
-            new(Lines(Character, PositionX, PositionY, Width, Height, FontColor, BackgroundColor));
+        public IEnumerable<DisplayedLine> GetDisplayedLines() => Lines(Character, PositionX, PositionY, Width, Height, FontColor, BackgroundColor);
 
         #endregion
     }
